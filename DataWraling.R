@@ -39,3 +39,11 @@ my_quantile <- function(x){
 murders %>% 
   filter(region == "West") %>%
   summarize(my_quantile(rate))
+
+# group by region
+murders %>% group_by(region)
+
+# summarize after grouping
+murders %>% 
+  group_by(region) %>%
+  summarize(median = median(rate))
