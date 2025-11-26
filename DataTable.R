@@ -43,3 +43,51 @@ x <- data.table(a = 1)
 y <- copy(x)
 x[,a := 2]
 y
+
+
+# subsetting in data.table
+murders[rate <= 0.7]
+
+# combining filter and select in data.table
+murders[rate <= 0.7, .(state, rate)]
+
+# combining filter and select in dplyr
+murders %>% filter(rate <= 0.7) %>% select(state, rate)
+
+
+murders <- setDT(murders)
+murders[, rate := total / population * 100000]
+
+# order by population
+murders[order(population)] |> head()
+
+# order by population in descending order
+murders[order(population, decreasing = TRUE)] 
+
+# order by region and then murder rate
+murders[order(region, rate)]
+
+
+# view the dataset
+murders %>% group_by(region)
+
+# see the class
+murders %>% group_by(region) %>% class()
+
+# compare the print output of a regular data frame to a tibble
+gapminder
+as_tibble(gapminder)
+
+# compare subsetting a regular data frame and a tibble
+class(murders[,1])
+class(as_tibble(murders)[,1])
+
+# access a column vector not as a tibble using $
+class(as_tibble(murders)$state)
+
+# compare what happens when accessing a column that doesn't exist in a regular data frame to in a tibble
+murders$State
+as_tibble(murders)$State
+
+# create a tibble
+tibble(id = c(1, 2, 3), func = c(mean, median, sd))
