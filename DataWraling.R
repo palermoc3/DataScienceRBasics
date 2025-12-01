@@ -71,3 +71,14 @@ a <- murders %>%
   group_by(region) %>% arrange(desc(rate)) %>% head()
 a
 
+
+# Copy the spreadsheet containing the US murders data (included as part of the dslabs package) 
+
+filename <- "murders.csv"
+dir <- system.file("extdata", package = "dslabs") 
+fullpath <- file.path(dir, filename)
+file.copy(fullpath, "murders.csv")
+
+# Once the file is copied, import the data with a line of code. Use the read_csv function from the readr package (included in the tidyverse)
+library(tidyverse)
+dat <- read_csv(filename)
